@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import style from '../App.css';
 import Card from './Card.js';
-import Menu from './Menu.js';
 
 const Recettes = () => {
 

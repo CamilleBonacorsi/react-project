@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Article from './Article.js';
-import Menu from './Menu.js';
 import style from '../App.css';
 import { Link } from 'react-router-dom';
 
@@ -27,6 +26,7 @@ const Blog = () => {
     }
 
     const updateArticles = () => {
+        alert("update");
         axios.get("http://localhost:3003/articles").then((res) => setData(res.data));
     }
 
@@ -60,7 +60,7 @@ const Blog = () => {
 
             <div id='div-output-article'>
                 {data.map((element) =>
-                    <Article author={element.author} date={element.date} message={element.content} updateArticles={updateArticles} />
+                    <Article author={element.author} date={element.date} message={element.content} idMessage={element.id} updateArticles={updateArticles} />
                 )}
             </div>
         </div >
