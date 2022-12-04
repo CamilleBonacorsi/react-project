@@ -12,20 +12,19 @@ const Menu = () => {
         color: "white",
     };
 
-    //let activeClassName = "underline";
 
     return (
         <>
             <nav>
                 <div style={{ margin: '10px' }}>
-                    <NavLink to="" style={({ isActive }) =>
+                    <NavLink exact to="/" style={({ isActive }) =>
                         isActive ? activeStyle : unactiveStyle
                     }>
                         Recettes
                     </NavLink>
                 </div>
                 <div style={{ margin: '10px' }}>
-                    <NavLink to="blog" style={({ isActive }) =>
+                    <NavLink exact to="/blog" style={({ isActive }) =>
                         isActive ? activeStyle : unactiveStyle
                     }>
                         Blog

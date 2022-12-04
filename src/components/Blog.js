@@ -11,37 +11,28 @@ const Blog = () => {
     const [data, setData] = useState([]);
     const [authorName, setAuthorName] = useState('');
     const [newMessage, setNewMessage] = useState('');
-    const [checkMessageSize, setCheckMessageSize] = useState(false);
-    //const [showSizeMessage, setShowSizeMessage] = useState(false);
-    // const [id, getId()] = useState();
 
     useEffect(() => {
         axios.get("http://localhost:3003/articles").then((res) => setData(res.data));
     }, []);
 
-    //<p id='blog-min-chars' style={{ visibility: showSizeMessage ? 'visible' : 'hidden' }}>Veuillez écrire un minimum de 100 caractères.</p>
 
     const addArticle = (element) => {
         element.preventDefault();
-        if (checkMessageSize) {
-            axios.post('http://localhost:3003/articles', { author: authorName, content: newMessage, date: Date.now() });
-            //setShowSizeMessage(false);
-
+        if (newMessage.length >= 100) {
+            axios.post('http://localhost:3003/articles', { author: authorName, content: newMessage, date: Date.now() }).then(updateArticles);
         } else {
-            console.log('message trop court');
-            //setShowSizeMessage(true);
+            alert('Message trop court');
         }
     }
-    /*
-        const deleteArticle = (elt) => {
-            axios.delete("http://localhost:3003/articles/" + elt.getId()).then(alert('ok')); 
-            delete data[elt];
-        }
-        */
+
+    const updateArticles = () => {
+        axios.get("http://localhost:3003/articles").then((res) => setData(res.data));
+    }
+
 
     return (
         <div id='Blog'>
-            <Link to="/">Back to Recettes</Link>
 
             <h1>Blog</h1>
 
@@ -63,12 +54,13 @@ const Blog = () => {
 
                 <p id='blog-min-chars' >Veuillez écrire un minimum de 100 caractères.</p>
 
-                <button type='submit' onClick={(newMessage.length >= 100) ? setCheckMessageSize(true) : setCheckMessageSize(false)}>Envoyer</button>
+                <button type='submit'>Envoyer</button>
+
             </form>
 
             <div id='div-output-article'>
                 {data.map((element) =>
-                    <Article author={element.author} date={element.date} message={element.content} />
+                    <Article author={element.author} date={element.date} message={element.content} updateArticles={updateArticles} />
                 )}
             </div>
         </div >
